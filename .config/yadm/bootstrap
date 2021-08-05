@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yay -S base-devel strip fakeroot mc fish python2 grc neovim python-pynvim python2-pynvim nerd-fonts-hack kitty 
+yay -S base-devel strip fakeroot mc fish python2 grc exa neovim python-pynvim python2-pynvim nerd-fonts-hack kitty 
 
 curl -sLf https://spacevim.org/install.sh | bash -s -- --install neovim
 
