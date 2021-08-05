@@ -1,0 +1,8 @@
+#!/bin/bash
+
+yay -S base-devel strip fakeroot mc fish python2 grc neovim python-pynvim python2-pynvim nerd-fonts-hack kitty 
+
+curl -sLf https://spacevim.org/install.sh | bash -s -- --install neovim
+
+fish --command '.config/yadm/bootstrap.fish'
+
