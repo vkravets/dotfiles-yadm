@@ -18,7 +18,6 @@ fundle plugin patrickf1/colored_man_pages.fish
 fundle init
 
 # For nvim/vim quick startup 
-set PYTHON_HOST_PROG (which python2)
 set PYTHON3_HOST_PROG (which python)
 
 set -g theme_display_git yes
