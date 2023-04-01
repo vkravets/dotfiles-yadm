@@ -2,7 +2,11 @@
 
 yay -S base-devel binutils fakeroot mc fish grc exa neovim python-pynvim nerd-fonts-hack kitty fzf 
 
-curl -sLf https://spacevim.org/install.sh | bash -s -- --install neovim
+# Install AstroVim
+git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+
+# Install SpaceVim
+# curl -sLf https://spacevim.org/install.sh | bash -s -- --install neovim
 
 fish --command '.config/yadm/bootstrap.fish'
 
