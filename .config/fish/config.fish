@@ -1,4 +1,5 @@
 alias vim 'nvim'
+alias far 'far2l --tty --nodetect .'
 alias ls 'exa --group-directories-first --git --icons'
 set -g EDITOR nvim
 
