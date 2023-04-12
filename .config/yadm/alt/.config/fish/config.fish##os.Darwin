@@ -1,0 +1,149 @@
+alias nvim "env NVIM_APPNAME=LazyVim nvim"
+
+set -x LC_ALL en_US.UTF-8
+set -x LANG en_US.UTF-8
+set -gx EDITOR nvim
+
+set DOCKER_SOCKET $HOME/.rd/docker.sock
+
+if not functions -q fundle
+    eval (curl -sfL https://git.io/fundle-install)
+end
+
+fundle plugin vkravets/theme-bobthefish --url /Users/vkravets/my/theme-bobthefish
+fundle plugin laughedelic/brew-completions
+fundle plugin orefalo/grc
+#fundle plugin jethrokuan/fzf
+fundle plugin danhper/fish-fastdir
+fundle plugin acomagu/fish-async-prompt
+fundle plugin jethrokuan/z
+fundle plugin PatrickF1/fzf.fish
+
+fundle init
+
+#alias ocat 'cat'
+alias hcat 'highlight -O ansi'
+alias vim nvim
+alias lsl /bin/ls
+alias ls exa
+alias await 'wait $last_pid'
+alias adsearch 'env LDAPTLS_REQCERT=never ldapsearch -x -H ldaps://ad-ldap.va.opower.it/ -b DC=opower,DC=local -s sub -D "$USER@opower.local" -W -E pr=1000/noprompt -o ldif-wrap=no'
+
+
+function opower
+    $HOME/opt/oracle-vpn/run.sh $argv
+    set http_proxy http://127.0.0.1:8118
+    set https_proxy http://127.0.0.1:8118
+    set HTTP_PROXY http://127.0.0.1:8118
+    set HTTPS_PROXY http://127.0.0.1:8118
+end
+
+function code
+    set location "$PWD/$argv"
+    open -n -b "com.microsoft.VSCode" --args $location
+end
+
+function far
+    far2l --tty --nodetect .
+end
+# alias java_ls '/usr/libexec/java_home -V 2>&1 | grep -E "\d.\d.\d(_\d\d)?" | cut -d \(  -f 1 | colrm 1 4 | grep -v Home'
+
+# function java_use
+#    set -gx JAVA_HOME (/usr/libexec/java_home -v $argv)
+#    #set -gx PATH $JAVA_HOME/bin $PATH
+#    set -g fish_user_paths "$JAVA_HOME/bin" $fish_user_paths
+#    java -version
+# end
+
+set hilite (which highlight)
+
+fish_add_path -p "$HOME/.local/bin" "$HOME/bin" /usr/local/bin /usr/local/sbin
+
+set -x LESSOPEN "| $hilite %s --out-format xterm256 --quiet --force -s rdark"
+set -x LESS " -R"
+
+set -x HOMEBREW_CASK_OPTS '--appdir=~/Applications'
+
+set -gx GIT_EDITOR $EDITOR
+set -gx USER vladimir.kravets
+set -gx USER_ORACLE volodymyr.kravets@oracle.com
+
+set -x GOPATH $HOME/go
+set -x GOROOT /usr/local/opt/go/libexec
+fish_add_path $GOPATH/bin $GOROOT/bin
+
+set -g theme_display_git yes
+set -g theme_display_git_dirty yes
+set -g theme_display_git_untracked no
+set -g theme_display_git_ahead_verbose no
+set -g theme_display_git_dirty_verbose yes
+set -g theme_display_git_stashed_verbose no
+set -g theme_display_git_master_branch yes
+set -g theme_git_worktree_support false
+set -g theme_display_vagrant no
+set -g theme_display_docker_machine no
+set -g theme_display_k8s_context no
+set -g theme_display_hg no
+set -g theme_display_virtualenv no
+set -g theme_display_ruby yes
+set -g theme_display_nvm yes
+set -g theme_display_user ssh
+set -g theme_display_hostname ssh
+set -g theme_display_vi no
+set -g theme_display_date yes
+set -g theme_display_cmd_duration yes
+set -g theme_title_display_process yes
+set -g theme_title_display_path no
+set -g theme_title_display_user yes
+set -g theme_title_use_abbreviated_path no
+set -g theme_date_format "+%a %H:%M"
+set -g theme_avoid_ambiguous_glyphs no
+set -g theme_powerline_fonts yes
+set -g theme_nerd_fonts yes
+set -g theme_show_exit_status yes
+# set -g default_user vkravets
+set -g theme_color_scheme dark
+set -g fish_prompt_pwd_dir_length 0
+set -g theme_project_dir_length 1
+set -g theme_newline_cursor yes
+set -g theme_newline_prompt '#> '
+set -g theme_display_logo yes
+set -g fish_color_search_match --background='333'
+
+set -g __color_logo 333333 cccccc
+set -g theme_logo_symbol '\uf179'
+
+set -gx GITHUB_HOST github.va.opower.it
+set -gx GIT_USER vladimir.kravets
+
+if test "$TERM" = wezterm
+    source $HOME/.config/fish/shell_integration.fish
+end
+# test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+# set -g fish_user_paths "/usr/local/opt/mysql@5.6/bin" $fish_user_paths
+# set -g fish_user_paths "/usr/local/opt/maven@3.5/bin" $fish_user_paths
+# ulimit -n 65536
+#
+
+# libressl
+fish_add_path /usr/local/opt/libressl/bin
+alias brew="env USER=vkravets PATH=(string replace (pyenv root)/shims '' \"\$PATH\") brew"
+
+# fnm
+fish_add_path $HOME/.fnm
+fnm env | source
+# MSP releted scripts
+
+source ~/work/oci/main.fish
+
+fish_add_path $HOME/.rd/bin
+
+# status --is-interactive; and source (jenv init -|psub)
+# colima for testcontainers
+#set -x TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE /var/run/docker.sock
+#set -x DOCKER_HOST unix://{$HOME}/.colima/docker.sock
+
+pyenv init - | source
+
+fzf_configure_bindings --directory=\cf --variables=\e\cv
+set fzf_dir_opts --bind "ctrl-o:execute($EDITOR {} &> /dev/tty)"
