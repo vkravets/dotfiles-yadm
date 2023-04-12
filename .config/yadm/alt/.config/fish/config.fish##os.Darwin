@@ -4,7 +4,7 @@ set -x LC_ALL en_US.UTF-8
 set -x LANG en_US.UTF-8
 set -gx EDITOR nvim
 
-set DOCKER_SOCKET $HOME/.rd/docker.sock
+set -x DOCKER_SOCKET $HOME/.rd/docker.sock
 
 if not functions -q fundle
     eval (curl -sfL https://git.io/fundle-install)
