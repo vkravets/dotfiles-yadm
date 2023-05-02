@@ -46,14 +46,15 @@ end
 function far
     far2l --tty --nodetect .
 end
-# alias java_ls '/usr/libexec/java_home -V 2>&1 | grep -E "\d.\d.\d(_\d\d)?" | cut -d \(  -f 1 | colrm 1 4 | grep -v Home'
 
-# function java_use
-#    set -gx JAVA_HOME (/usr/libexec/java_home -v $argv)
-#    #set -gx PATH $JAVA_HOME/bin $PATH
-#    set -g fish_user_paths "$JAVA_HOME/bin" $fish_user_paths
-#    java -version
-# end
+alias java_ls '/usr/libexec/java_home -V 2>&1 | grep -E "\d.\d.\d(_\d\d)?" | cut -d \(  -f 1 | colrm 1 4 | grep -v Home'
+
+function java_use
+    set -gx JAVA_HOME (/usr/libexec/java_home -v $argv)
+    #set -gx PATH $JAVA_HOME/bin $PATH
+    set -g fish_user_paths "$JAVA_HOME/bin" $fish_user_paths
+    java -version
+end
 
 set hilite (which highlight)
 

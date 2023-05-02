@@ -13,6 +13,15 @@ return {
     cmd = {"SudaRead", "SudaWrite"},
   },
 
+  {
+    "gbprod/cutlass.nvim",
+    config = function()
+      require("cutlass").setup({
+          exclude = { "ns", "nS" },
+      })
+    end
+  },
+
   -- add symbols-outline
   {
     "simrat39/symbols-outline.nvim",
